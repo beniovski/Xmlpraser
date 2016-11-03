@@ -2,23 +2,23 @@
 set_time_limit(0);
 require ('appLink.php');
 require('array.php');
-require ('run.php');
+//require ('run.php');
 
 
 interface Ixmlvalidation
 {
-	public function file_open($filename);   //  otwarcie pliku z obsĹ‚ugÄ… bĹ‚Ä™dĂłw
+	public function file_open($filename);   //  otwarcie pliku z obsÄąâ€šugĂ„â€¦ bÄąâ€šĂ„â„˘dÄ‚Ĺ‚w
 	public function ftp_login($ftp_server,$ftp_username,$ftp_password); // logowanie do ftp 
-	public function ftp_send($send_file); // wysyĹ‚anie przetworzonego pliku xml na ftp
+	public function ftp_send($send_file); // wysyłanie przetworzonego pliku xml na ftp
 	public function open_xml($xml_file); // otwarcie pliku xml
-	public function create_data($xml_content,$file); // tworzenie nowego pliku xml
+	public function create_data(); // tworzenie nowego pliku xml
 	public function file_data_save($handle, $string); // zapis danych do nowego pliku xml
 
 	
 }
 
 
-class XmlValidation extends OfapiClient implements Ixmlvalidation
+class XmlValidation implements Ixmlvalidation
 {
 	private   $ftp_server = "ftp.opole.nazwa.pl";
 	private   $ftp_username   = "opole_xmfile";
@@ -89,22 +89,23 @@ function open_xml($xml_file)
 	if(!$this->xml_handle) 																											// sprawdzanie porpawnosci zaladowania pliku oraz w zaleznosci od wyniku wyswietlenie komunikatu
 	
 	{
-		echo "PRZETWARZANIE PLIKU XML NIE POWIODĹ�O SIÄ�";
+		echo "PRZETWARZANIE PLIKU XML NIE POWIODÄąďż˝O SIĂ„ďż˝";
 		exit;
 	}
 	
 	
-	$this->count = $this->xml_handle->count().'<br>';	   		// odczytanie iloĂ„Ä…Ă˘â‚¬Ĺźci obiektĂ„â€šÄąâ€šw w pliku xml
+	$this->count = $this->xml_handle->count().'<br>';	   		// odczytanie iloÄ‚â€žĂ„â€¦Ä‚Ë�Ă˘â€šÂ¬ÄąĹşci obiektÄ‚â€žĂ˘â‚¬ĹˇĂ„Ä…Ă˘â‚¬Ĺˇw w pliku xml
 	echo "aktualna ilosc ogloszen w bazie: ".$this->count;
 	
 	
 }
 	
-function create_data($xml_content,$file)	
+function create_data()	
 {	
 	$i=0;
-	$link = new AppLink();
-		
+	$XmlDataArray=[];
+	$link = new AppLink();	
+	
 	while($i<$this->count)
 	
 	{		
@@ -124,54 +125,35 @@ function create_data($xml_content,$file)
 	$data_exp=$this->xml_handle->job[$i]->expiryDate;
 	$jobid=$this->xml_handle->job[$i]->uniqueId;
 	$location=$this->xml_handle->job[$i]->location;
-		
-	$a = $link->sql_query($name);	
-	$category = $link->CatAliasQuery($a['cat_id']);		
-	$application_link=$link->AppLinkGenerator($a,$category['alias']);	
 	
-	echo $application_link.'<br>';
+	$a = $link->sql_query($name);
+	$category = $link->CatAliasQuery($a['cat_id']);
+	$GeneretedAppLink =$link->AppLinkGenerator($a,$category['alias']);
 	
-
-	
-	
-	
-	switch($file)
-	{
-		case "indeed.xml":
-			$this->xml_data.=sprintf($xml_content,$name,$data_start,$jobid,$application_link,$location,$countryRegionName,$country, $position_description, $requirements, $opportunites);
-			break;
-			
-		case "pracapl.xml":
-			///echo "praca.pl";
-			break;
-			
-		case 'carrerjet.xml':
-			$this->xml_data.=sprintf($xml_content,$name,$location,$position_description, $requirements, $opportunites,$application_link);
-			break;
-		
-		case 'goldenline':	
-			
-			$offer_data = [
-					'native_id' => '31415926535',
-					'start_date' => (new DateTime())->format('Y-m-d'),
-					'exp_date' => (new DateTime())->add(new DateInterval('P35D'))->format('Y-m-d'),
-					'company' => 'Test company',
-					'position' => 'Test position',
-					'refnum' => '123/45',
-					'contact_email' => 'apply@example.com',
-					'city' => 'Test city',
-					'regions' => [$regions[0]['id']],
-					'branches' => [$branches[0]['id'], $branches[1]['id']],
-					'html_body' => 'Put entire contents of BODY tag here', ];
-			break;
-	}
-	
-		
-	
-	
+	$XmlDataArray[$i] = [ 	
+							'company_description' => $company_description,
+							'location' => $location,
+							'name' => $name,
+							'country' => $country,
+							'CountryRegionName' => $countryRegionName,
+							'position_description' => $position_description,
+							'Requirements' => $requirements,
+							'opportunites' => $opportunites,
+							'notes' => $notes,
+							'application_link' => $application_link,
+							'clause' => $clause,
+							'$data_start' => $data_start,
+							'data_exp' => $data_exp,
+							'jobid' => $jobid,
+							'location' => $location,
+							'GeneretedAppLink' => $GeneretedAppLink,
+							
+						];
 	$i++;
-	}
-		
+			
+	}	
+	
+	return $XmlDataArray;
 }
 
 function file_data_save($handle, $string)
@@ -188,35 +170,13 @@ function file_data_save($handle, $string)
 	}
 	
 }	
-		
-	
+
 }
 
 
 $xmlValid = new XmlValidation();
 
-$j=0;
-	
-for($j; $j<4; $j++)
 
-{
-	$i=0;	
-
-	$xmlValid -> file_open($tablica[$i][$j]);
-	
-	$xmlValid -> file_data_save($xmlValid->plik, $tablica[$i+1][$j]);
-
-	$xmlValid -> create_data($tablica[$i+2][$j],$tablica[$i][$j]);
-
-	$xmlValid -> file_data_save($xmlValid->plik, $xmlValid->xml_data);
-
-	$xmlValid -> file_data_save($xmlValid->plik, $tablica[$i+3][$j]);
-
-	$xmlValid -> ftp_send($tablica[$i][$j]);
-	
-	
-
-}
 
 
 

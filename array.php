@@ -92,10 +92,10 @@ $indeed_bottom = "</source>";
 
   
 $tablica =  array  ( 
-							 array('indeed.xml', 'pracapl.xml','carrerjet.xml' , 'goldenline'),
-							 array($indeed_head, $pracapl_head, $careerjet_head,''),
-							 array($indeed_cont, $pracapl_cont, $careerjet_cont, ''),
-							 array($indeed_bottom, $pracapl_bottom, $carrerjet_bottom, ''),						
+							 array('indeed.xml', 'pracapl.xml','carrerjet.xml'  ),
+							 array($indeed_head, $pracapl_head, $careerjet_head),
+							 array($indeed_cont, $pracapl_cont, $careerjet_cont),
+							 array($indeed_bottom, $pracapl_bottom, $carrerjet_bottom),						
 							
 						
 						);
