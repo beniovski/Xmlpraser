@@ -14,6 +14,8 @@ $client = new OfapiClient(APP_KEY, SECRET_KEY, HASH_KEY);
 $branches = $client->branches();
 $regions = $client->regions();
 //print_r($client->specialities());
+echo '<br>';
+
 $offer_data = [
     'native_id' => '31415926535',
     'start_date' => (new DateTime())->format('Y-m-d'),
@@ -28,6 +30,8 @@ $offer_data = [
     'html_body' => 'Put entire contents of BODY tag here',
 ];
 //print_r($client->edit_offer($offer_data));
-//print_r($client->offer_status($offer_data['native_id']));
-//print_r($client->offer_statistics($offer_data['native_id']));
+echo '<br>';
+print_r($client->offer_status($offer_data['native_id']));
+echo '<br>';
+print_r($client->offer_statistics($offer_data['native_id']));
 ?>

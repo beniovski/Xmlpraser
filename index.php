@@ -2,18 +2,17 @@
 set_time_limit(0);
 require ('appLink.php');
 require('array.php');
-//require ('run.php');
 
 
 interface Ixmlvalidation
 {
+	
 	public function file_open($filename);   //  otwarcie pliku z obsÄąâ€šugĂ„â€¦ bÄąâ€šĂ„â„˘dÄ‚Ĺ‚w
 	public function ftp_login($ftp_server,$ftp_username,$ftp_password); // logowanie do ftp 
 	public function ftp_send($send_file); // wysyłanie przetworzonego pliku xml na ftp
 	public function open_xml($xml_file); // otwarcie pliku xml
 	public function create_data(); // tworzenie nowego pliku xml
 	public function file_data_save($handle, $string); // zapis danych do nowego pliku xml
-
 	
 }
 
