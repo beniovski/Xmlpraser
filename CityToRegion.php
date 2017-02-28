@@ -27,8 +27,7 @@ class CityToRegion
 	
 	 function Region($city)
 	{
-	 	$this->dbConnection();
-	 		
+	 	$this->dbConnection();	 		
 		$query = "SELECT region  FROM `city` WHERE city = '$city'";
 		$result = $this->con->query($query);
 		$result = $result->fetch_assoc();

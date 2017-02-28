@@ -2,12 +2,13 @@
 
 class AppLink
 {
+	
     private  $db_user = "opole_30";
     private  $db_name = "opole_30";
     private  $db_host = "sql.opole.nazwa.pl";
     private  $db_pass = "P@retti1!";  
     
-    protected $appLink = "www.paretti.pl/wyszukiwarka-ofert-pracy/ad/";    
+    protected $appLink = "http://www.paretti.pl/wyszukiwarka-ofert-pracy/ad/";    
     protected $con;
        
     public function  __construct()

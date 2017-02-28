@@ -1,7 +1,6 @@
 <?php
 set_time_limit(0);
-require ('appLink.php');
-require('array.php');
+require_once ('appLink.php');
 
 
 interface Ixmlvalidation
@@ -76,8 +75,7 @@ function ftp_send($send_file)
 			exit;
 		}
 		
-		//ftp_close($this->conn_id);
-		
+				
 	}
 	
 function open_xml($xml_file)
@@ -141,12 +139,12 @@ function create_data()
 							'notes' => $notes,
 							'application_link' => $application_link,
 							'clause' => $clause,
-							'$data_start' => $data_start,
+							'data_start' => $data_start,
 							'data_exp' => $data_exp,
 							'jobid' => $jobid,
 							'location' => $location,
 							'GeneretedAppLink' => $GeneretedAppLink,
-							
+						
 						];
 	$i++;
 			
@@ -173,7 +171,6 @@ function file_data_save($handle, $string)
 }
 
 
-$xmlValid = new XmlValidation();
 
 
 
