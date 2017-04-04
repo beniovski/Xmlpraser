@@ -2,10 +2,10 @@
 
 class CityToRegion 
 {
-	private  $db_user = "opole_32";
-	private  $db_name = "opole_32";
-	private  $db_host = "sql.opole.nazwa.pl";
-	private  $db_pass = "P@retti1!";
+	private  $db_user = "";
+	private  $db_name = "";
+	private  $db_host = "";
+	private  $db_pass = "";
 	protected $con;
 	
 	private function dbConnection()
