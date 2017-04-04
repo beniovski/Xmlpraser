@@ -3,10 +3,10 @@
 class AppLink
 {
 	
-    private  $db_user = "opole_30";
-    private  $db_name = "opole_30";
-    private  $db_host = "sql.opole.nazwa.pl";
-    private  $db_pass = "P@retti1!";  
+    private  $db_user = "";
+    private  $db_name = "";
+    private  $db_host = "";
+    private  $db_pass = "";  
     
     protected $appLink = "http://www.paretti.pl/wyszukiwarka-ofert-pracy/ad/";    
     protected $con;
