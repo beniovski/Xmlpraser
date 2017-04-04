@@ -1,6 +1,5 @@
 <?php
 
-
 Class CarierjetValidation 
 {
 	
@@ -26,19 +25,18 @@ Class CarierjetValidation
 						</job>";
 	
 	private $carrerjet_bottom='</jobs>';
-	
-	
-	public  $data = "";
+		
+	private  $data = "";
 	
 	function __construct($xmlData =array(),XmlValidation $validation)
 	{
 		$validation->file_open("careerjet.xml");
 		$this->careerJetCreation($xmlData);
 		$validation->file_data_save($validation->plik, $this->data);
-		$validation->ftp_send("careerjet.xml");
+		//$validation->ftp_send("careerjet.xml");
 	}
 	
-	function careerJetCreation($xmlData =array())
+	private function careerJetCreation($xmlData =array())
 	{
 		$this->data = $this->careerjet_head;
 		foreach ($xmlData as $key => $offer  )

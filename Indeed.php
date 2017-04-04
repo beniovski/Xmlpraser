@@ -26,7 +26,7 @@ Class IndeedValidation
 	
 	private $indeed_bottom = "</source>";
 		
-    public $data = "";
+    private $data = "";
 		
 	function __construct($xmlData = array(), XmlValidation $validation)
 	{
@@ -37,7 +37,7 @@ Class IndeedValidation
 	}
 	
 	
-	function indeedCreation($xmlData =array())
+	private function indeedCreation($xmlData =array())
 	{
 		
 		$this->data .= $this->indeed_head;
