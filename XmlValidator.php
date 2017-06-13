@@ -18,9 +18,9 @@ interface Ixmlvalidation
 
 class XmlValidation implements Ixmlvalidation
 {
-	private   $ftp_server = "ftp.opole.nazwa.pl";
-	private   $ftp_username   = "opole_xmfile";
-	private   $ftp_password   = "seM%<gho]9YYceTN]nk7";	
+	private   $ftp_server = "";
+	private   $ftp_username   = "";
+	private   $ftp_password   = "";	
 	private   $file = 'http://skk.erecruiter.pl/OffersXml.ashx?cid=20132496';
 	
 	public $plik;
